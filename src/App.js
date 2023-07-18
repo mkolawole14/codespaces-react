@@ -1,29 +1,31 @@
-import './App.css';
+import React from 'react';
+// import Counter from './Counter';
+import { useState, useEffect } from "react";
 
-function App() {
+const App = () => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    //This functio will be called after every render
+    document.title = `Count: ${count}`;
+
+    //Clean-up function
+    return () => {
+      //This function will be called before the component unmounts
+      document.title = 'React App'; // reset the document title
+    };
+  }, [count]); //Specify count as a dependency
+
+const incrementCount = () => {
+      setCount(count + 1);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src="Octocat.png" className="App-logo" alt="logo" />
-        <p>
-          GitHub Codespaces <span className="heart">♥️</span> React
-        </p>
-        <p className="small">
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={incrementCount}>Increment</button>
     </div>
-  );
-}
+      );
+  }
 
-export default App;
+  export default App;
